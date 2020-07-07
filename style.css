@@ -1,0 +1,50 @@
+body {
+    font-size: 14px;
+    background-color: #fdfdfd;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+.container {
+    padding: 140px;
+    max-width: 400px;
+    margin: 0 auto;
+    user-select: none;
+    text-align: center;
+  }
+
+#startQuiz {
+    background-color: rgb(132, 132, 216);
+    color: white
+}
+
+.highScores {
+    position: relative;
+    color: rgb(132, 132, 216);
+    text-align: left;
+}
+
+.time {
+    color: rgb(132, 132, 216);
+    text-align: right;
+}
+
+#quiz {
+    display: none;
+}
+
+.choice {
+    
+    border: 20px;
+    border-color: black;
+    padding: 5px;
+    margin: 10px;
+    background-color: rgb(132, 132, 216);
+    color: white;
+}
+
+#question {
+    margin-bottom: 40px;
+    font-size: 24px;
+    text-align: left;
+    line-height: normal;
+}

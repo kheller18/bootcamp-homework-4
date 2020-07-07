@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Coding Quiz</title>
 </head>
-<body>
-    
+<body>    
+
+    <div class="highScores">View Highscores
+        <div class="time">Time: </div>
+    </div>
+
+    <div class="container">
+        <div id="menu">
+            <h1>Coding Quiz Challenge</h1>
+            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+            <button id="startQuiz">Start Quiz</button>
+        </div>
+        <div id="quiz">
+            <div id="question"></div>
+            <div id="choices">
+                <div class="choice" id="A" onclick="checkAnswer('A')"></div>
+                <div class="choice" id="B" onclick="checkAnswer('B')"></div>
+                <div class="choice" id="C" onclick="checkAnswer('C')"></div>
+                <div class="choice" id="D" onclick="checkAnswer('D')"></div>
+
+            </div>
+        </div>
+       <!-- <article>
+            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+        </article>-->
+        
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
