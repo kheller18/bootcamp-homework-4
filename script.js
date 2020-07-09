@@ -14,12 +14,21 @@ const back = document.querySelector("#back");
 const clear = document.querySelector("#clear");
 const finalScore = document.querySelector("#finalScore");
 let time = document.querySelector(".time");
+let initials = document.querySelector("#initials");
 
 let runningQuestion = 0;
 var totalSeconds = 0;
 var secondsElapsed = 0;
-let timeleft = 30;
+let timeleft = 75;
 var timer;
+
+
+let users = [
+    {
+        "name" : [],
+        "score": []
+    }
+]
 
 // creating questions
 let questions = [
@@ -66,6 +75,10 @@ let questions = [
     
 ]
 
+
+displayMenu();
+document.querySelector(".time").innerHTML = "Time: 75";
+clearInterval();
 function checkAnswer(answer) {
     if (answer != questions[runningQuestion].correct) {
         console.log("incorrect");
@@ -73,52 +86,60 @@ function checkAnswer(answer) {
         document.querySelector(".time").innerHTML = "Time: " + timeleft;
       //  setTimeout(timer);
         //setInterval(timer);
-    } else {     
-    }
+    } 
+
     if (runningQuestion < questions.length -1) {
         runningQuestion++;
     } else {
         stopTimer();
         endResults();
+        document.querySelector("#finalScore").innerHTML = "Your final score is: " + timeleft;
         quiz.style.display = "none";
         results.style.display = "block";
     }
 }
 
-function setTime() {
-    clearInterval(timer);
-    totalSeconds = minutes * 60;
-}
+//function setTime() {
+  //  clearInterval(timer);
+    //totalSeconds = minutes * 60;
+//}
+
+
 
 function stopTimer() {
     clearInterval(timer);
-    //document.querySelector("#finalScore").innerHTML = "Your final score is: " + timeleft;
+    
 }
 
-timer = setInterval(function() {    
-    console.log(timeleft);
+function renderTime() {
+    
     document.querySelector(".time").innerHTML = "Time: " + timeleft;
-    if (timeleft <= 0) {
-       // document.querySelector(".time").innerHTML = "Time: " + timeleft;
-        stopTimer();
-        endResults();
-    } 
-    
-    if (timeleft > 0) {
-        timeleft -= 1;
-    }
-   
-    return timeleft;
-}, 1000);
-
-function endResults() {
-    document.querySelector("#finalScore").innerHTML = "Your final score is: " + timeleft;
-    results.style.display = "block";
-    menu.style.display = "none";
-    quiz.style.display = "none";
-    scores.style.display = "none";
 }
+
+
+//function startTimer() {
+function displayMenu() {
+    clearInterval(timer);
+    menu.style.display = "block";
+}
+
+function startTimer() {
     
+    timer = setInterval(function() {    
+        timeleft -= 1;
+        //document.querySelector(".time").innerHTML = "Time: " + timeleft;
+        if (timeleft <= 0) {
+        // document.querySelector(".time").innerHTML = "Time: " + timeleft;
+            stopTimer();
+            endResults();
+            document.querySelector("#finalScore").innerHTML = "Your final score is: " + timeleft;
+        }    
+        renderTime();
+    //return timeleft;
+    }, 1000);
+}    
+//}
+
 
 function renderQuestion() {
     let q = questions[runningQuestion];
@@ -129,19 +150,51 @@ function renderQuestion() {
     choiceD.innerHTML = q.choiceD;
 }
 
+
+
 function startQuiz() {
+    //clearInterval(timer);
     menu.style.display = "none";
-    //setInterval(timer);
+    timeleft = 75;
+    startTimer();
     renderQuestion();
     quiz.style.display = "block";
 }
 
+function endResults() {
+    clearInterval(timer)
+    //document.querySelector("#finalScore").innerHTML = "Your final score is: " + timeleft;
+    results.style.display = "block";
+    menu.style.display = "none";
+    quiz.style.display = "none";
+    scores.style.display = "none";
+}
+/*function setTimePreferences() {
+    localStorage.setItem(
+      "preferences",
+      JSON.stringify({
+        workMinutes: workMinutesInput.value.trim(),
+        restMinutes: restMinutesInput.value.trim()
+      })
+    );
+  } */
 
-function submitResults() {
+function submitResults(event) {
+    event.preventDefault();
     results.style.display = "none";
     menu.style.display = "none";
     quiz.style.display = "none";
     scores.style.display = "block";
+
+    //localStorage.stringify(localStorage.setItem(users))
+    localStorage.setItem(
+        "users",
+        JSON.stringify({
+            initials[0]: initials.value.trim(),
+            score[]:  timeleft
+        })
+    )
+    var user = JSON.parse(localStorage.getItem("users"));
 }
 
 function goBack() {
@@ -153,6 +206,11 @@ function goBack() {
 
 function clearHighscores() {
 
+}
+
+function displayMenu() {
+    clearInterval(timer);
+    menu.style.display = "block";
 }
 
 start.addEventListener("click", startQuiz);
