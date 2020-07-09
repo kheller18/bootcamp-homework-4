@@ -12,12 +12,14 @@ const submit = document.querySelector("#submit");
 const scores = document.querySelector("#scores");
 const back = document.querySelector("#back");
 const clear = document.querySelector("#clear");
+const finalScore = document.querySelector("#finalScore");
 let time = document.querySelector(".time");
 
 let runningQuestion = 0;
 var totalSeconds = 0;
 var secondsElapsed = 0;
-var interval;
+let timeleft = 30;
+var timer;
 
 // creating questions
 let questions = [
@@ -64,20 +66,59 @@ let questions = [
     
 ]
 
-let timeleft = 60;
-let timer = setInterval(function() {
-    if (timeleft < 0) {
-        clearInterval(timer);
-        endResults();
-    } else {
+function checkAnswer(answer) {
+    if (answer != questions[runningQuestion].correct) {
+        console.log("incorrect");
+        timeleft -= 10;
         document.querySelector(".time").innerHTML = "Time: " + timeleft;
+      //  setTimeout(timer);
+        //setInterval(timer);
+    } else {     
     }
-    timeleft -= 1;
-}, 1000);
+    if (runningQuestion < questions.length -1) {
+        runningQuestion++;
+    } else {
+        stopTimer();
+        endResults();
+        quiz.style.display = "none";
+        results.style.display = "block";
+    }
+}
+
+function setTime() {
+    clearInterval(timer);
+    totalSeconds = minutes * 60;
+}
 
 function stopTimer() {
     clearInterval(timer);
+    //document.querySelector("#finalScore").innerHTML = "Your final score is: " + timeleft;
 }
+
+timer = setInterval(function() {    
+    console.log(timeleft);
+    document.querySelector(".time").innerHTML = "Time: " + timeleft;
+    if (timeleft <= 0) {
+       // document.querySelector(".time").innerHTML = "Time: " + timeleft;
+        stopTimer();
+        endResults();
+    } 
+    
+    if (timeleft > 0) {
+        timeleft -= 1;
+    }
+   
+    return timeleft;
+}, 1000);
+
+function endResults() {
+    document.querySelector("#finalScore").innerHTML = "Your final score is: " + timeleft;
+    results.style.display = "block";
+    menu.style.display = "none";
+    quiz.style.display = "none";
+    scores.style.display = "none";
+}
+    
 
 function renderQuestion() {
     let q = questions[runningQuestion];
@@ -90,31 +131,11 @@ function renderQuestion() {
 
 function startQuiz() {
     menu.style.display = "none";
-    setInterval(timer)
+    //setInterval(timer);
     renderQuestion();
     quiz.style.display = "block";
 }
 
-function checkAnswer(answer) {
-    if (answer == questions[runningQuestion].correct) {
-        
-    }
-    if (runningQuestion < questions.length -1) {
-        runningQuestion++;
-    } else {
-        stopTimer();
-        quiz.style.display = "none";
-        results.style.display = "block";
-        
-    }
-}
-
-function endResults() {
-    results.style.display = "block";
-    menu.style.display = "none";
-    quiz.style.display = "none";
-    scores.style.display = "none";
-}
 
 function submitResults() {
     results.style.display = "none";
@@ -124,15 +145,15 @@ function submitResults() {
 }
 
 function goBack() {
+    document.querySelector("#menu").reset();
     scores.style.display = "none";
     menu.style.display = "block";
+    //restart();
 }
 
 function clearHighscores() {
 
 }
-
-
 
 start.addEventListener("click", startQuiz);
 choiceA.addEventListener("click", renderQuestion);
