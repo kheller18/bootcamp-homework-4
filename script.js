@@ -15,7 +15,11 @@ const clear = document.querySelector("#clear");
 const finalScore = document.querySelector("#finalScore");
 let time = document.querySelector(".time");
 let initials = document.querySelector("#initials");
-
+let scoreList = document.querySelector("#scoreList");
+let users = [];
+let counter = 0;
+let initialsArray = [];
+let timeArray = [];
 let runningQuestion = 0;
 var totalSeconds = 0;
 var secondsElapsed = 0;
@@ -23,12 +27,12 @@ let timeleft = 75;
 var timer;
 
 
-let users = [
+/*let users = [
     {
-        "name" : [],
-        "score": []
+        "initials": "",
+        "score": ""
     }
-]
+];*/
 
 // creating questions
 let questions = [
@@ -185,32 +189,74 @@ function submitResults(event) {
     menu.style.display = "none";
     quiz.style.display = "none";
     scores.style.display = "block";
+   // scoreList = 
+    //users.name.push(initials);
+    //users.score.push(timeleft);
+    //console.log(users.name);
 
+    
     //localStorage.stringify(localStorage.setItem(users))
-    localStorage.setItem(
-        "users",
-        JSON.stringify({
-            initials[0]: initials.value.trim(),
-            score[]:  timeleft
-        })
-    )
-    var user = JSON.parse(localStorage.getItem("users"));
+    //if (counter == 0) {
+        
+       // users.push({"initials": initials, "score": timeleft});
+      //  console.log(users)
+     //   localStorage.setItem(
+   //         "users",
+    //        JSON.stringify({
+      //          initials: initials.value.trim(),
+       //         score:  timeleft
+       //     })
+      //  )
+    //counter+=1;
+    //} 
+    //var user = JSON.parse(localStorage.getItem("users")) || [];
+    
+    //users = users.push({"initials": initials.value.trim(), "score": timeleft});
+    users = JSON.parse(localStorage.getItem("users"));
+    users.push({"initials": initials.value.trim(), "score": timeleft});
+    window.localStorage.setItem("users", JSON.stringify(users));
+    console.log(users);
+    //var newUser = [
+     //   {
+      //  'initials': initials.value.trim(),
+       // 'score': timeleft
+       // }
+    //];
+    //user.push(newUser);
+   // localStorage.setItem("users", JSON.stringify(newUser));
+    //scoreList = user.initials + "-" + user.score;
+    //newarray = [];
+    //newarray = JSON.parse(localStorage.getItem("users"));
+    //console.log(newarray);
+    
+    var individualList = document.querySelector("#individualList");
+    for (let i = 0; i < users.length; i++) {
+        var li = document.createElement('li');
+        li.textContent = users[i].initials + "-" + users[i].score;
+        individualList.appendChild(li); 
+    }
+       
+    //console.log(user);
 }
 
 function goBack() {
-    document.querySelector("#menu").reset();
+    displayMenu();
+    
     scores.style.display = "none";
-    menu.style.display = "block";
+    //menu.style.display = "block";
     //restart();
 }
 
 function clearHighscores() {
-
+    localStorage.removeItem("users");
+    counter=0;
 }
 
 function displayMenu() {
     clearInterval(timer);
     menu.style.display = "block";
+    document.querySelector(".time").innerHTML = "Time: 75";
+    runningQuestion = 0;
 }
 
 start.addEventListener("click", startQuiz);
