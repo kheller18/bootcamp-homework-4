@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Coding Quiz</title>
 </head>
 <body>    
-    
-    <div class="grid-container">
-        <div class="grid-child-left">View Highscores</div>
-        <div class="time">Time: 0</div>
-    </div>
 
+    <div class="navbar navbar-expand-sm  bg-white">
+        
+       
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li id="highScores">View Highscores</li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li id="time">Time: 0</li>
+            </ul>
+        </div>
+    </div>
+    
+   <!-- <div class="grid-container">
+        <div class="grid-child-left highScores">View Highscores</div>
+        <div class="grid-child-right time">Time: 0</div>
+    </div>
+-->
     <div class="container">
         <div id="menu">
             <h1>Coding Quiz Challenge</h1>
@@ -40,14 +55,11 @@
         
         <div id="scores">
             <h1>Highscores</h1>
-            <div id="scoreList">
-                <ol id="individualList">
-
-                </ol> 
+            <div id="scoreList"></div>
+            <div id="buttons">
+                <button id="back">Go Back</button>
+                <button id="clear">Clear Highscores</button>
             </div>
-           
-            <button id="back">Go Back</button>
-            <button id="clear">Clear Highscores</button>
 
         </div>
 

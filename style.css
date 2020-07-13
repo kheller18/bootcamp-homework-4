@@ -5,9 +5,9 @@ body {
 }
 
 .container {
-    padding: 140px;
-    max-width: 400px;
-    margin: 0 auto;
+    margin-top: 100px;
+    max-width: 470px;
+    
     align-items: center;
     text-align: center;
 }
@@ -39,14 +39,15 @@ body {
     text-align: left;
 }
 
-.highScores {
+#highScores {
     color: rgb(132, 132, 216);
-    text-align: left;
+    
+    
 }
 
-.time {
+#time {
     color: rgb(132, 132, 216);
-    float: right;
+    
 }
 
 #quiz {
@@ -91,21 +92,29 @@ button {
     cursor: pointer;
 }
 
-#individualList {
+
+#buttons {
+    margin-top: 5px;
+}
+/* #individualList {
     text-align: left;
     padding-inline-start: 17px;
     padding-top: 5px;
     padding-bottom: 5px;
-}
+} */
 
-ol {
+/*ol {
     text-align: left;
-    background-color: rgb(132, 132, 216);
+    
     color: white;
     border: solid black 5px;
     
-}
+} */
 
 #finalScore {
     padding-bottom: 5px;
+}
+
+li {
+    list-style-type: none;
 }
