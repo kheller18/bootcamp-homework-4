@@ -13,6 +13,7 @@ const scores = document.querySelector("#scores");
 const back = document.querySelector("#back");
 const clear = document.querySelector("#clear");
 const finalScore = document.querySelector("#finalScore");
+const highScores = document.querySelector("#highScores")
 let time = document.querySelector("#time");
 let initials = document.querySelector("#initials");
 let scoreList = document.querySelector("#scoreList");
@@ -28,6 +29,7 @@ var secondsElapsed = 0;
 let timeleft = 75;
 var timer;
 let scoreCounter = 1;
+
 // creating questions
 let questions = [
     {
@@ -73,13 +75,17 @@ let questions = [
     
 ]
 
-
+// Application gets kicked off here
 displayMenu();
-//clearInterval();
+
 function checkAnswer(answer) {
     if (answer != questions[runningQuestion].correct) {
         console.log("incorrect");
-        timeleft -= 10;
+        if (timeleft < 10) {
+            timeleft = 0;
+        } else {
+            timeleft -= 10;
+        }
         document.querySelector("#time").innerHTML = "Time: " + timeleft;
     } 
 
@@ -94,10 +100,14 @@ function checkAnswer(answer) {
     }
 }
 
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
 
 function stopTimer() {
     clearInterval(timer);
-    
 }
 
 function renderTime() {
@@ -105,24 +115,14 @@ function renderTime() {
     document.querySelector("#time").innerHTML = "Time: " + timeleft;
 }
 
-function displayMenu() {
-    clearInterval(timer);
-    menu.style.display = "block";
-}
-
 function startTimer() {
-    
     timer = setInterval(function() {    
         timeleft -= 1;
-        //document.querySelector(".time").innerHTML = "Time: " + timeleft;
         if (timeleft <= 0) {
-        // document.querySelector(".time").innerHTML = "Time: " + timeleft;
             stopTimer();
             endResults();
-            document.querySelector("#finalScore").innerHTML = "Your final score is: " + timeleft;
         }    
         renderTime();
-    //return timeleft;
     }, 1000);
 }    
 
@@ -136,7 +136,6 @@ function renderQuestion() {
 }
 
 function startQuiz() {
-    //clearInterval(timer);
     menu.style.display = "none";
     timeleft = 75;
     startTimer();
@@ -145,8 +144,7 @@ function startQuiz() {
 }
 
 function endResults() {
-    clearInterval(timer)
-    //document.querySelector("#finalScore").innerHTML = "Your final score is: " + timeleft;
+    document.querySelector("#finalScore").innerHTML = "Your final score is: " + timeleft;
     results.style.display = "block";
     menu.style.display = "none";
     quiz.style.display = "none";
@@ -154,25 +152,26 @@ function endResults() {
 }
 
 function goBack() {
-    scoreList = document.querySelector("#scoreList");
-    removeAllChildNodes(scoreList);
+    //scoreList = document.querySelector("#scoreList");
+    //removeAllChildNodes(scoreList);
     scores.style.display = "none";
     displayMenu();
 }
 
 function clearHighscores() {
     localStorage.removeItem("users");
-    scoreList = document.querySelector("#scoreList");
-    removeAllChildNodes(scoreList);
+    //scoreList = document.querySelector("#scoreList");
+    //removeAllChildNodes(scoreList);
 }
 
-function submitResults(event) {
-    event.preventDefault();
+function submitResults() {
+    //event.preventDefault();
+    scoreList = document.querySelector("#scoreList");
+    removeAllChildNodes(scoreList);
     results.style.display = "none";
     menu.style.display = "none";
     quiz.style.display = "none";
     scores.style.display = "block";
-    //scoreList.style.display = "block";
     users = [];
     getUsers = [];
     
@@ -183,7 +182,6 @@ function submitResults(event) {
     
     users.push({"initials": initials.value.trim(), "score": timeleft});
     window.localStorage.setItem("users", JSON.stringify(users));
-    //console.log(users);
     getUsers = JSON.parse(localStorage.getItem("users"));
     console.log(users)
     console.log(getUsers)
@@ -199,13 +197,21 @@ function submitResults(event) {
         li.textContent = (i+1) + ". " + getUsers[i].initials + " - " + getUsers[i].score;
         scoreList.appendChild(li); 
     }
+    return scoreList;
 }
 
-function removeAllChildNodes(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
+function displayHighscores() {
+    let array = []; 
+    array = submitResults();
+    console.log(array);
+
+    scores.style.display = "block";
+    menu.style.display = "none";
+    quiz.style.display = "none";
+    results.style.display = "none";
 }
+
+
 
 function goBack() {
     scoreList = document.querySelector("#scoreList");
@@ -236,3 +242,4 @@ choiceD.addEventListener("click", renderQuestion);
 submit.addEventListener("click", submitResults);
 back.addEventListener("click", goBack);
 clear.addEventListener("click", clearHighscores);
+highScores.addEventListener("click", displayHighscores);

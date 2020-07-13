@@ -41,6 +41,7 @@ body {
 
 #highScores {
     color: rgb(132, 132, 216);
+    cursor: pointer;
     
     
 }
@@ -61,6 +62,7 @@ body {
     margin: 10px;
     background-color: rgb(132, 132, 216);
     color: white;
+    cursor: pointer;
 }
 
 #question {
@@ -74,6 +76,7 @@ body {
     padding: 10px;
     border: 5px;
     border-color: black;
+    cursor: pointer;
 }
 
 /* #submit {
@@ -84,17 +87,19 @@ body {
 #scores {
     display: none;
     text-align: left;
+    cursor: pointer;
 }
 
 button {
     background-color: rgb(132, 132, 216);
     color: white;
-    cursor: pointer;
+    
 }
 
 
 #buttons {
     margin-top: 5px;
+    cursor: pointer;
 }
 /* #individualList {
     text-align: left;
