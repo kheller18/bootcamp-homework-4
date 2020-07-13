@@ -30,11 +30,20 @@
         <div id="quiz">
             <div id="question"></div>
             <div id="choices">
-                <div class="choice" id="A" onclick="checkAnswer('A')"></div>
-                <div class="choice" id="B" onclick="checkAnswer('B')"></div>
-                <div class="choice" id="C" onclick="checkAnswer('C')"></div>
-                <div class="choice" id="D" onclick="checkAnswer('D')"></div>
+                <div class="choice">
+                    <button id="A" onclick="checkAnswer('A')"></button>
+                </div>
+                <div class="choice">
+                    <button id="B" onclick="checkAnswer('B')"></button>
+                </div>
+                <div class="choice">
+                    <button id="C" onclick="checkAnswer('C')"></button>
+                </div>
+                <div class="choice">
+                    <button id="D" onclick="checkAnswer('D')"></button>
+                </div>
             </div>
+            <div id="answerFeedback"></div>
         </div>
 
         <div id="results">

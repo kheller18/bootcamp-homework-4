@@ -17,6 +17,7 @@ const highScores = document.querySelector("#highScores")
 let time = document.querySelector("#time");
 let initials = document.querySelector("#initials");
 let scoreList = document.querySelector("#scoreList");
+let answerFeedback = document.querySelector("#answerFeedback");
 //var individualList = document.querySelector("#individualList");
 let users = [];
 let getUsers = [];
@@ -82,6 +83,8 @@ displayMenu();
 function checkAnswer(answer) {
     if (answer != questions[runningQuestion].correct) {
         console.log("incorrect");
+        //renderProgress();
+        //document.querySelector("#answerFeedback").innerHTML = "Wrong!";
         if (timeleft < 10) {
             timeleft = 0;
             stopTimer();
@@ -89,6 +92,10 @@ function checkAnswer(answer) {
             timeleft -= 10;
         }
         document.querySelector("#time").innerHTML = "Time: " + timeleft;
+    } else {
+        //answerFeedback.textContent = "Correct!";
+        //renderProgress();
+        //document.querySelector("#answerFeedback").innerHTML = "Correct!";
     } 
 
     if (runningQuestion < questions.length -1) {
@@ -137,11 +144,25 @@ function renderQuestion() {
     choiceD.innerHTML = q.choiceD;
 }
 
+function renderProgress() {
+    //let addFeedback = document.createElement("<div>");
+    removeAllChildNodes(answerFeedback);
+    for (let qIndex = 0; qIndex < questions.length; qIndex++) {
+        answerFeedback.innerHTML += "<div class='totalFeedback' id="+ qIndex +"></div";
+
+        
+    } 
+    console.log(answerFeedback);
+    //totalFeedback = document.querySelector(".totalFeedback");
+    //totalFeedback.setAttribute("style", "display: inline-block;");
+}
+
 function startQuiz() {
     menu.style.display = "none";
     timeleft = 75;
     startTimer();
     renderQuestion();
+    renderProgress();
     quiz.style.display = "block";
 }
 
@@ -157,11 +178,15 @@ function goBack() {
     //scoreList = document.querySelector("#scoreList");
     //removeAllChildNodes(scoreList);
     scores.style.display = "none";
+    answerFeedback = document.querySelector("#answerFeedback");
+    removeAllChildNodes(answerFeedback);
     displayMenu();
 }
 
 function clearHighscores() {
     localStorage.removeItem("users");
+    answerFeedback = document.querySelector("#answerFeedback");
+    removeAllChildNodes(answerFeedback);
     //scoreList = document.querySelector("#scoreList");
     //removeAllChildNodes(scoreList);
 }
@@ -203,10 +228,7 @@ function submitResults() {
 }
 
 function displayHighscores() {
-    let array = []; 
-    array = submitResults();
-    console.log(array);
-
+    stopTimer();
     scores.style.display = "block";
     menu.style.display = "none";
     quiz.style.display = "none";
@@ -217,7 +239,7 @@ function displayHighscores() {
 
 function goBack() {
     scoreList = document.querySelector("#scoreList");
-    removeAllChildNodes(scoreList);
+    //removeAllChildNodes(scoreList);
     scores.style.display = "none";
     displayMenu();
 }
