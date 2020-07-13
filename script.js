@@ -16,6 +16,7 @@ const finalScore = document.querySelector("#finalScore");
 let time = document.querySelector(".time");
 let initials = document.querySelector("#initials");
 let scoreList = document.querySelector("#scoreList");
+var individualList = document.querySelector("#individualList");
 let users = [];
 let counter = 0;
 let initialsArray = [];
@@ -212,6 +213,8 @@ function submitResults(event) {
     //var user = JSON.parse(localStorage.getItem("users")) || [];
     
     //users = users.push({"initials": initials.value.trim(), "score": timeleft});
+   
+    //users = JSON.parse(localStorage.getItem("users"));
     users = JSON.parse(localStorage.getItem("users"));
     users.push({"initials": initials.value.trim(), "score": timeleft});
     window.localStorage.setItem("users", JSON.stringify(users));
@@ -229,7 +232,7 @@ function submitResults(event) {
     //newarray = JSON.parse(localStorage.getItem("users"));
     //console.log(newarray);
     
-    var individualList = document.querySelector("#individualList");
+    
     for (let i = 0; i < users.length; i++) {
         var li = document.createElement('li');
         li.textContent = users[i].initials + "-" + users[i].score;
@@ -249,6 +252,7 @@ function goBack() {
 
 function clearHighscores() {
     localStorage.removeItem("users");
+    individualList.style.display = "none";
     counter=0;
 }
 
