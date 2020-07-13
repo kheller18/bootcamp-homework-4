@@ -29,47 +29,48 @@ var secondsElapsed = 0;
 let timeleft = 75;
 var timer;
 let scoreCounter = 1;
+let bold = "DO NOT";
 
 // creating questions
 let questions = [
     {
-        question: "Commonly used data types DO NOT include ____________.",
-        choiceA: "1. strings",
-        choiceB: "2. booleans",
-        choiceC: "3. alerts",
-        choiceD: "4. numbers",
+        question: "Commonly used data types " + bold.bold("DO NOT") + " include ________.",
+        choiceA: "A. strings",
+        choiceB: "B. booleans",
+        choiceC: "C. alerts",
+        choiceD: "D. numbers",
         correct: "C"
     },
     {
-        question: "The condition in an if / else statement is enclosed within ____________.",
-        choiceA: "1. quotes",
-        choiceB: "2. curly brackets",
-        choiceC: "3. parenthesis",
-        choiceD: "4. square brackets",
+        question: "The condition in an if / else statement is enclosed within ________.",
+        choiceA: "A. quotes",
+        choiceB: "B. curly brackets",
+        choiceC: "C. parenthesis",
+        choiceD: "D. square brackets",
         correct: "C"
     },
     {
-        question: "Arrays in JavaScript can be used to store _____________.",
-        choiceA: "1. numbers and strings",
-        choiceB: "2. other arrays",
-        choiceC: "3. booleans",
-        choiceD: "4. all of the above",
+        question: "Arrays in JavaScript can be used to store ________.",
+        choiceA: "A. numbers and strings",
+        choiceB: "B. other arrays",
+        choiceC: "C. booleans",
+        choiceD: "D. all of the above",
         correct: "D"
     },
     {
-        question: "String values must be enclosed within _____________ when being assigned to variables.",
-        choiceA: "1. commas",
-        choiceB: "2. curly brackets",
-        choiceC: "3. quotes",
-        choiceD: "4. parenthesis",
+        question: "String values must be enclosed within ________ when being assigned to variables.",
+        choiceA: "A. commas",
+        choiceB: "B. curly brackets",
+        choiceC: "C. quotes",
+        choiceD: "D. parenthesis",
         correct: "C"
     },
     {
-        question: "A very useful tool used during development and debugging for printing content to the debugger is _____________.",
-        choiceA: "1. JavaScript",
-        choiceB: "2. terminal / bash",
-        choiceC: "3. for loops",
-        choiceD: "4. console.log",
+        question: "A very useful tool used during development and debugging for printing content to the debugger is ________.",
+        choiceA: "A. JavaScript",
+        choiceB: "B. terminal / bash",
+        choiceC: "C. for loops",
+        choiceD: "D. console.log",
         correct: "D"
     },
     
@@ -83,6 +84,7 @@ function checkAnswer(answer) {
         console.log("incorrect");
         if (timeleft < 10) {
             timeleft = 0;
+            stopTimer();
         } else {
             timeleft -= 10;
         }
@@ -229,7 +231,7 @@ function clearHighscores() {
 
 function displayMenu() {
     clearInterval(timer);
-    document.querySelector("#time").innerHTML = "Time: 75";
+    document.querySelector("#time").innerHTML = "Time: 0";
     menu.style.display = "block";
     runningQuestion = 0;
 }

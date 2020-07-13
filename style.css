@@ -1,12 +1,12 @@
 body {
-    font-size: 14px;
+    font-size: 16px;
     background-color: #fdfdfd;
     font-family: "Josefin Sans", sans-serif;
 }
 
 .container {
     margin-top: 100px;
-    max-width: 470px;
+    max-width: 550px;
     
     align-items: center;
     text-align: center;
@@ -42,8 +42,6 @@ body {
 #highScores {
     color: rgb(132, 132, 216);
     cursor: pointer;
-    
-    
 }
 
 #time {
@@ -52,14 +50,17 @@ body {
 }
 
 #quiz {
+   
+    padding: 7px;
+    border: solid black 3px;
     display: none;
 }
 
 .choice {
-    border: 20px;
-    border-color: black;
+    text-align: left;
     padding: 5px;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     background-color: rgb(132, 132, 216);
     color: white;
     cursor: pointer;
@@ -122,4 +123,5 @@ button {
 
 li {
     list-style-type: none;
+    height: 25px;
 }
