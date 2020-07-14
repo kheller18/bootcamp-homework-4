@@ -63,6 +63,7 @@ body {
     margin-top: 0px;
     margin-bottom: 15px;
     margin-left: 85px;
+    margin-right: 5px;
     font-size: 20px;
     overflow-wrap: break-word;
     line-height: normal;
@@ -89,6 +90,11 @@ button {
 button:hover {
     background-color: rgb(132, 132, 216);
     opacity: 0.5;
+    
+}
+
+button:focus {
+    outline: none;
 }
 
 #buttons {
@@ -112,6 +118,7 @@ li {
     margin-right: 0px;
     vertical-align: bottom;
     margin-top: 10px;
+    margin-right: 5px;
 }
 
 .totalFeedback {
