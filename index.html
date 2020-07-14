@@ -28,7 +28,11 @@
         </div>
 
         <div id="quiz">
-            <div id="question"></div>
+            <div id="qHeader">
+                <img src="./Assets/JS.jpg"  class="alignHeader" id="qImg" alt="">
+                <div class= "alignHeader" id="question"></div>
+            </div>
+            
             <div id="choices">
                 <div class="choice">
                     <button id="A" onclick="checkAnswer('A')"></button>
@@ -47,10 +51,10 @@
         </div>
 
         <div id="results">
-            <h1>All done!</h1>
+            <h1>Quiz Completed!</h1>
             <div id="finalScore"></div> 
             <label for="initials">Enter initials: </label>
-            <input type="text" name="initials" id="initials" />
+            <input type="text" name="initials" id="initials" required />
             <button id="submit">Submit</button>
         </div>
         

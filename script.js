@@ -7,8 +7,9 @@ const choiceA = document.querySelector("#A");
 const choiceB = document.querySelector("#B");
 const choiceC = document.querySelector("#C");
 const choiceD = document.querySelector("#D");
+//const qImg = document.querySelector("#qImg");
 const results = document.querySelector("#results");
-const submit = document.querySelector("#submit");
+let submit = document.querySelector("#submit");
 const scores = document.querySelector("#scores");
 const back = document.querySelector("#back");
 const clear = document.querySelector("#clear");
@@ -18,6 +19,8 @@ let time = document.querySelector("#time");
 let initials = document.querySelector("#initials");
 let scoreList = document.querySelector("#scoreList");
 let answerFeedback = document.querySelector("#answerFeedback");
+//document.querySelector("#initials").required = true;
+//initials.required = true;
 //var individualList = document.querySelector("#individualList");
 let users = [];
 let getUsers = [];
@@ -85,6 +88,7 @@ function checkAnswer(answer) {
         console.log("incorrect");
         //renderProgress();
         //document.querySelector("#answerFeedback").innerHTML = "Wrong!";
+        document.getElementById(runningQuestion).setAttribute("style", "background-color: #f00;");
         if (timeleft < 10) {
             timeleft = 0;
             stopTimer();
@@ -93,9 +97,7 @@ function checkAnswer(answer) {
         }
         document.querySelector("#time").innerHTML = "Time: " + timeleft;
     } else {
-        //answerFeedback.textContent = "Correct!";
-        //renderProgress();
-        //document.querySelector("#answerFeedback").innerHTML = "Correct!";
+        document.getElementById(runningQuestion).setAttribute("style", "background-color: #0f0;");
     } 
 
     if (runningQuestion < questions.length -1) {
@@ -120,7 +122,6 @@ function stopTimer() {
 }
 
 function renderTime() {
-    
     document.querySelector("#time").innerHTML = "Time: " + timeleft;
 }
 
@@ -145,21 +146,24 @@ function renderQuestion() {
 }
 
 function renderProgress() {
-    //let addFeedback = document.createElement("<div>");
+    answerFeedback = document.querySelector("#answerFeedback");
     removeAllChildNodes(answerFeedback);
-    for (let qIndex = 0; qIndex < questions.length; qIndex++) {
-        answerFeedback.innerHTML += "<div class='totalFeedback' id="+ qIndex +"></div";
 
-        
+    for (let qIndex = 0; qIndex < questions.length; qIndex++) {
+        var addFeedback = document.createElement("div");
+        addFeedback.className = "totalFeedback";
+        addFeedback.id = qIndex;
+        addFeedback.innerHTML = qIndex + 1;
+        console.log(addFeedback);
+        answerFeedback.appendChild(addFeedback);
     } 
-    console.log(answerFeedback);
-    //totalFeedback = document.querySelector(".totalFeedback");
-    //totalFeedback.setAttribute("style", "display: inline-block;");
+    console.log(answerFeedback)
 }
 
 function startQuiz() {
     menu.style.display = "none";
     timeleft = 75;
+    document.querySelector("#time").innerHTML = "Time: " + timeleft;
     startTimer();
     renderQuestion();
     renderProgress();
@@ -172,11 +176,17 @@ function endResults() {
     menu.style.display = "none";
     quiz.style.display = "none";
     scores.style.display = "none";
+    initials = document.querySelector("#initials");
+    console.log(initials.length);
+    submit = document.querySelector("#submit");
+    //if (initials.length == 0) {
+   //     submit.preventDefault(submitResults);
+   // } else {
+
+   // }
 }
 
 function goBack() {
-    //scoreList = document.querySelector("#scoreList");
-    //removeAllChildNodes(scoreList);
     scores.style.display = "none";
     answerFeedback = document.querySelector("#answerFeedback");
     removeAllChildNodes(answerFeedback);
@@ -219,7 +229,7 @@ function submitResults() {
             li.setAttribute("style", "background-color: #cc99ff;");
         } else {
             li.setAttribute("style", "background-color: #8484D8;");
-          
+        
         }
         li.textContent = (i+1) + ". " + getUsers[i].initials + " - " + getUsers[i].score;
         scoreList.appendChild(li); 
@@ -227,8 +237,23 @@ function submitResults() {
     return scoreList;
 }
 
+function validateInitials() {
+    initials = document.querySelector("#initials");
+    
+    console.log(initials.textContent);
+
+    if (initials.value == "" || initials.value == null) {
+        alert("Enter initials!");
+    } else {
+        submitResults();
+
+    }
+
+} 
+
 function displayHighscores() {
     stopTimer();
+    getHighscores();
     scores.style.display = "block";
     menu.style.display = "none";
     quiz.style.display = "none";
@@ -236,7 +261,29 @@ function displayHighscores() {
 }
 
 
+function getHighscores() {
+    getUsers = [];
+    getUsers = JSON.parse(localStorage.getItem("users"));
+    //console.log(getUsers.length);
+    scoreList = document.querySelector("#scoreList");
+    removeAllChildNodes(scoreList);
 
+    if (getUsers != null || getUsers != undefined) {
+        for (let i = 0; i < getUsers.length; i++) {
+            var li = document.createElement('li');
+            if (i % 2 == 0) {
+                li.setAttribute("style", "background-color: #cc99ff;");
+            } else {
+                li.setAttribute("style", "background-color: #8484D8;");
+              
+            }
+            li.textContent = " " + (i+1) + ". " + getUsers[i].initials + " - " + getUsers[i].score;
+            scoreList.appendChild(li); 
+        }
+    }
+    
+
+}
 function goBack() {
     scoreList = document.querySelector("#scoreList");
     //removeAllChildNodes(scoreList);
@@ -256,6 +303,9 @@ function displayMenu() {
     document.querySelector("#time").innerHTML = "Time: 0";
     menu.style.display = "block";
     runningQuestion = 0;
+    document.querySelector("#initials").value = "";
+    //initials = document.querySelector("#initials");
+    //initials.textContent = "";
 }
 
 start.addEventListener("click", startQuiz);
@@ -263,7 +313,8 @@ choiceA.addEventListener("click", renderQuestion);
 choiceB.addEventListener("click", renderQuestion);
 choiceC.addEventListener("click", renderQuestion);
 choiceD.addEventListener("click", renderQuestion);
-submit.addEventListener("click", submitResults);
+submit.addEventListener("click", validateInitials);
 back.addEventListener("click", goBack);
 clear.addEventListener("click", clearHighscores);
 highScores.addEventListener("click", displayHighscores);
+
